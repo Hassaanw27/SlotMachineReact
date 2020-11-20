@@ -1,0 +1,29 @@
+{
+  "name": "slotmachinereact",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hassaanw27/SlotMachineReact.git"
+  },
+  "keywords": [
+    "slotmachine",
+    "react",
+    "app"
+  ],
+  "author": "HHW MLO LH CH MPH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hassaanw27/SlotMachineReact/issues"
+  },
+  "homepage": "https://github.com/Hassaanw27/SlotMachineReact#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "firebase": "^8.0.2",
+    "react-bootstrap": "^1.4.0"
+  }
+}
