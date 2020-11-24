@@ -20,9 +20,29 @@ class App extends Component {
       [e.target.name]: e.target.value
     });
   }
+
+
+
+
   handleSubmit(e) {
     e.preventDefault(); //removes default behaviors like reloading on pressing submit.
-    const inputcode1Ref = firebase.database().ref('inputcode1');
+    const inputcode1Ref = firebase.database().ref("inputcode1");
+    inputcode1Ref.once("value")
+      .then(function(snapshot) {
+        if (snapshot.hasChild("SlothCode")){
+             console.log("exists!");
+           }
+             else{
+               console.log("does not exist.")
+
+
+             }
+      });
+    //const inputcode1Ref = firebase.database().ref('inputcode1');
+    //inputcode1Ref.child('inputcode1').orderByChild("SlothCode").equalTo(this.state.SlothCode).once("value",snapshot => {
+  //      const userData = snapshot.val();
+  //
+  //  });
     const item = {
       SlothCode: this.state.currentItem
     }
