@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import './App.css'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -26,76 +28,102 @@ class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault(); //removes default behaviors like reloading on pressing submit.
+    const codesRef = firebase.database().ref();
     const inputcode1Ref = firebase.database().ref("inputcode1");
-    inputcode1Ref.once("value")
-      .then(function(snapshot) {
-        if (snapshot.hasChild("SlothCode")){
-             console.log("exists!");
-           }
-             else{
-               console.log("does not exist.")
+    inputcode1Ref.set({
+      SlothCode: e.target.value
+    }).then(function() {
+      codesRef.once("value")
+        .then(function(snapshot) {
 
+          if (snapshot.child("inputcode1/SlothCode").val() === snapshot.child("inputcode2/SlothCode1").val()) {
+            console.log("same!");
+          } else {
+            console.log("does not exist.")
+          }
+        })
 
-             }
-      });
+    });
     //const inputcode1Ref = firebase.database().ref('inputcode1');
     //inputcode1Ref.child('inputcode1').orderByChild("SlothCode").equalTo(this.state.SlothCode).once("value",snapshot => {
-  //      const userData = snapshot.val();
-  //
-  //  });
-    const item = {
-      SlothCode: this.state.currentItem
-    }
-    inputcode1Ref.set(item);
-    this.setState({
-      currentItem: '',
-      SlothCode: ''
-    });
+    //      const userData = snapshot.val();
+    //
+    //  });
+    //  const item = {
+    //    SlothCode: this.state.currentItem
+    //  }
+    //    inputcode1Ref.set(item);
+    //  this.setState({
+    //    currentItem: '',
+    //    SlothCode: ''
+
   }
-  componentDidMount() {
-    const inputcode1Ref = firebase.database().ref('inputcode1');
-    inputcode1Ref.on('value', (snapshot) => {
-      let inputcode1 = snapshot.val();
-      let newState = [];
-      for (let item in inputcode1) {
-        newState.push({
-          id: item,
-          SlothCode: inputcode1[item].SlothCode
-        });
-      }
-      this.setState({
-        inputcode1: newState
-      });
-    });
-  }
+  //  componentDidMount() {
+  //    const inputcode1Ref = firebase.database().ref('inputcode1');
+  //    inputcode1Ref.on('value', (snapshot) => {
+  //      let inputcode1 = snapshot.val();
+  //      let newState = [];
+  //      for (let item in inputcode1) {
+  //        newState.push({
+  //          id: item,
+  //          SlothCode: inputcode1[item].SlothCode
+  //        });
+  //      }
+  //      this.setState({
+  //        inputcode1: newState
+  //      });
+  //    });
+  //  }
 
   render() {
-    return (
-      <div className='app'>
-        <header>
-            <div className="wrapper">
-              <h1>Codes</h1>
-            </div>
-        </header>
-        <div className='container'>
-          <section className='add-item'>
-                  <input type="text" name="currentItem" placeholder="Enter Code" onChange={this.handleChange} value={this.state.currentItem} />
-                <Button onClick={this.handleSubmit}>Enter Code</Button>
-          </section>
-          <section className='display-item'>
-              <div className="wrapper">
-                <ul>
-                  {this.state.inputcode1.map((item) => {
-                    return (
-                      <h1>your code has been sent</h1>
+    return ( <
+      div className = 'app' >
+      <
+      header >
+      <
+      div className = "wrapper" >
+      <
+      h1 > Codes < /h1> < /
+      div > <
+      /header> <
+      div className = 'container' >
+      <
+      section className = 'add-item' >
+      <
+      input type = "text"
+      name = "currentItem"
+      placeholder = "Enter Code"
+      onChange = {
+        this.handleChange
+      }
+      value = {
+        this.state.currentItem
+      }
+      /> <
+      Button onClick = {
+        this.handleSubmit
+      }
+      value = {
+        this.state.currentItem
+      } > Enter Code < /Button> < /
+      section > <
+      section className = 'display-item' >
+      <
+      div className = "wrapper" >
+      <
+      ul > {
+        this.state.inputcode1.map((item) => {
+          return ( <
+            h1 > your code has been sent < /h1>
 
-                    )
-                  })}
-                </ul>
-              </div>
-          </section>
-        </div>
-      </div>
+          )
+        })
+      } <
+      /ul> < /
+      div > <
+      /section> < /
+      div > <
+      /div>
     );
   }
 }
