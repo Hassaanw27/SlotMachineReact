@@ -38,6 +38,7 @@ class App extends Component {
 
           if (snapshot.child("inputcode1/SlothCode").val() === snapshot.child("inputcode2/SlothCode1").val()) {
             console.log("same!");
+            firebase.database().ref("Payment").push({Paid:true});
           } else {
             console.log("does not exist.")
           }
