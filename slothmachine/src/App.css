@@ -1,6 +1,31 @@
 .app {
   text-align: center;
-  color: white;
-  background-color: #282c34;
+  color: green;
+
   height: 100vh;
+}
+
+.add-item{
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin: 12px 0px;
+}
+
+.btnSubmit{
+  display: none;
+}
+
+input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+input:focus{
+  outline: 1px solid lightgrey;
 }
