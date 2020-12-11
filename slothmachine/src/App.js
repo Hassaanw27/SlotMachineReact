@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       show:false,
       currentItem: [],
-      inputcode1: []
+      inputcode1: [],
+      value: 0
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,17 +26,17 @@ class App extends Component {
     });
   }
 
-  handleClick(e){
-    let count = 1;
-    if(count<10){
-      console.log("heyyyy")
-      console.log(count)
-      count+=1;
+  handleClick(event) {
+      if(this.state.value>9){
+        console.log(this.state.value)
+        console.log("DU HAR PRØVET 10 GANGE NU!!")
+      }
+      else{
+        console.log(this.state.value)
+
+      }
+      this.setState({value: this.state.value+1});
     }
-    else {
-      console.log("youve already tried 10 times")
-    }
-  }
 
   handleSubmit(e) {
     const btnSubmit = document.getElementById("btnSubmit");
