@@ -27,15 +27,26 @@ class App extends Component {
   }
 
   handleClick(event) {
-      if(this.state.value>9){
-        console.log(this.state.value)
-        console.log("DU HAR PRØVET 10 GANGE NU!!")
-      }
-      else{
+    const btnSubmit = document.getElementById("btnSubmit");
+    const inputcode2Ref = firebase.database().ref("inputcode2/SlothCode");
+      if(this.state.value<9){
+
+        console.log("Under 10")
+        this.setState({value: this.state.value+1});
         console.log(this.state.value)
 
       }
-      this.setState({value: this.state.value+1});
+      else if (this.state.value===9) {
+        console.log("SÅ ER VI PÅ 10 FORSØG")
+        this.setState({value: 0});
+        console.log(this.state.value)
+        btnSubmit.style.display = "none"
+        inputcode2Ref.set("Zero")
+
+      }
+      else{
+        console.log(this.state.value)
+      }
     }
 
   handleSubmit(e) {
@@ -47,13 +58,13 @@ class App extends Component {
     }).then(function() {
       codesRef.once("value")
         .then(function(snapshot) {
-          if (snapshot.child("inputcode1/SlothCode").val() === snapshot.child("inputcode2/SlothCode1").val()) {
+          if (snapshot.child("inputcode1/SlothCode").val() === snapshot.child("inputcode2/SlothCode").val()) {
             console.log("same!");
              btnSubmit.style.display = "block";
             firebase.database().ref("Payment").push({Paid:true});
           } else {
-            btnSubmit.style.backgroundColor = "blue";
-            console.log("does not exist.")
+            btnSubmit.style.backgroundColor = "orange";
+            console.log("Code does not exist.")
             btnSubmit.style.display = "none"
           }
         })
@@ -77,7 +88,7 @@ class App extends Component {
                         < / section>
                         < Button onClick={ this.handleSubmit } value={ this.state.currentItem }> Enter Code < /Button>
                           <section className='display-item'>
-                          <button className="knap" id="btnSubmit" onClick={ this.handleClick }  >Start Machine</button>
+                          <button className="knap" id="btnSubmit" onClick={ this.handleClick } style={{display:'none'}}  >Start Machine</button>
                             < div className="wrapper">
 
                               <div>
