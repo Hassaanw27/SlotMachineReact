@@ -13,8 +13,10 @@
   margin: 12px 0px;
 }
 
-.btnSubmit{
-  display: none;
+.knap{
+  margin:  12px auto;
+
+
 }
 
 input 				{

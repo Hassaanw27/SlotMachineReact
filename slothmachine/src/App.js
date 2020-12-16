@@ -10,9 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show:false,
       currentItem: [],
-      inputcode1: [],
+
       value: 0
     }
     this.handleChange = this.handleChange.bind(this);
@@ -51,6 +50,7 @@ class App extends Component {
 
   handleSubmit(e) {
     const btnSubmit = document.getElementById("btnSubmit");
+    const wrongcode = document.getElementById("wrongcode");
     const codesRef = firebase.database().ref();
     const inputcode1Ref = firebase.database().ref("inputcode1");
     inputcode1Ref.set({
@@ -62,10 +62,12 @@ class App extends Component {
             console.log("same!");
              btnSubmit.style.display = "block";
             firebase.database().ref("Payment").push({Paid:true});
+            wrongcode.style.display = "none"
           } else {
             btnSubmit.style.backgroundColor = "orange";
             console.log("Code does not exist.")
             btnSubmit.style.display = "none"
+            wrongcode.style.display = "block"
           }
         })
     });
@@ -88,17 +90,8 @@ class App extends Component {
                         < / section>
                         < Button onClick={ this.handleSubmit } value={ this.state.currentItem }> Enter Code < /Button>
                           <section className='display-item'>
-                          <button className="knap" id="btnSubmit" onClick={ this.handleClick } style={{display:'none'}}  >Start Machine</button>
-                            < div className="wrapper">
-
-                              <div>
-                              {
-                              this.state.show? <button>Roll</button> : true
-                              }
-
-                              </div>
-
-                                      < / div>
+                          <Button variant="success" size="lg" className="knap" id="btnSubmit" onClick={ this.handleClick } style={{display:'none'}}>Start Machine</Button>
+                          <div id="wrongcode" style={{display:'none'}}>Din kode er desværre forkert</div>
                                         < /section>
                                           < / div>
                                             < /div>
